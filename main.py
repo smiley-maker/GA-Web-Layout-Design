@@ -5,7 +5,7 @@ import copy
 
 def runGA(populationSize, crossoverRate, mutationRate, windowHeight, windowWidth):
     newNet = internet(populationSize, windowWidth, windowHeight)
-    for j in range(300):
+    for j in range(1000):
         net = internet(populationSize, windowWidth, windowHeight)
         net.sortByFitness()
         for i in range(int(populationSize/2)):
@@ -21,8 +21,11 @@ def runGA(populationSize, crossoverRate, mutationRate, windowHeight, windowWidth
             newNet.addWebsite(site2)
             net = copy.copy(newNet)
    #         newNet = internet(populationSize, windowWidth, windowHeight)
-        print(net.internet[-1].fitness())
+#        print(net.internet[-1].fitness())
+        bestFitness, index = net.evaluateFitness()
+        #net.displays(windowWidth, windowHeight, index)
         if j%100 == 0:
-            net.displays(windowWidth, windowHeight, j)
+            net.displays(windowWidth, windowHeight, index)
+            print(bestFitness)
 
-runGA(6, 1, 0, 500, 500)
+runGA(6, 1, 0.25, 500, 500)

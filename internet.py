@@ -25,6 +25,19 @@ class internet:
         choiceTwo = np.random.choice(self.internet, p = cost)
 #        newPop = self.sortByFitness()
         return (choiceOne, choiceTwo)
+
+    def evaluateFitness(self):
+        avgFitness = 0 #Variable to store the average fitness
+        bestFitness = 0 #Variable to store the best fitness
+        index = 0
+        for i in range(len(self.internet)):
+            fitnessLevel = self.internet[i].fitness()
+            avgFitness += fitnessLevel
+            if fitnessLevel > bestFitness:
+                bestFitness = fitnessLevel
+                index = i
+        avgFitness = avgFitness / len(self.internet)
+        return bestFitness, index
     
     def crossover(self, site1, site2):
         crossoverPoint = random.randrange(0, len(site1.web), 1)
