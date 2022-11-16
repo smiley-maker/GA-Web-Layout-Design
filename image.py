@@ -18,7 +18,7 @@ class image():
     
     def fitness(self, maxWidth):
         fitness = 0
-        if self.x < maxWidth-30 and self.width <= maxWidth/2:
+        if self.x < maxWidth-30 and self.width >= maxWidth/2:
             fitness += 4
         if self.height >= 150:
             fitness += 3

@@ -1,6 +1,9 @@
 from website import *
 import numpy as np
 
+#Could evaluate fitness of whole internet based on visualization scores for each website
+#Kind of like double genetic algorithms. 
+#Visualization score could either be regular fitness of each website or user input. 
 
 class internet:
     def __init__(self, size, windowWidth, windowHeight):
@@ -16,7 +19,7 @@ class internet:
         sortedFitnessValues = [f for (f,g) in tuples]
         sortedWebsites = [g for (f, g) in tuples]
         return sortedWebsites, sortedFitnessValues
-
+    
     def selectPair(self):
         weight = list(range(len(self.internet)))
         total = sum(weight)

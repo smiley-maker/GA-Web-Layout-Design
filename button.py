@@ -24,7 +24,7 @@ class button():
             fitness -= 1
         elif self.width >= 200:
             fitness -= 2
-        if self.height <= 50:
+        if self.height <= 50 and self.height >= 10:
             fitness += 3
         elif self.height > 50:
             fitness -= 1
