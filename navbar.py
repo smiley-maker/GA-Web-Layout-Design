@@ -19,28 +19,28 @@ class navbar():
             self.width = random.randrange(maxWidth/2, maxWidth, 5)
             self.height = random.randrange(20, maxHeight, 5)
     
-    def fitness(self, maxWidth):
+    def fitness(self, maxWidth, maxHeight):
         #Evaluates the fitness of the navbar based on the following constraints
         fitness = 0
-        #Reward if the navbar is close to the top
-        if self.y < 30:
+        #(1) Reward if the navbar is close to the top
+        if self.y < 0.1*maxHeight:
             fitness += 3
-        #Penalize if it is further down the page
-        elif self.y > 50:
+        #(1) Penalize if it is further down the page
+        elif self.y > 0.1*maxHeight:
             fitness -= 1
-        #Reward if the navbar is close to the left edge and the width is within a certain range of the page width. 
-        if self.x < 10 and self.width >= maxWidth - 10 and self.width <= maxWidth:
+        #(2)&(3) Reward if the navbar is close to the left edge and the width is within a certain range of the page width. 
+        if self.x < 0.05*maxWidth and 0.95*maxWidth <= self.width <= maxWidth:
             fitness += 4
-        #Reward if the height is under 50px
-        if self.height <= 50:
+        #(4) Reward if the height is under 50px
+        if self.height <= 0.1*maxHeight:
             fitness += 3
-        #Penalize otherwise
-        elif self.height > 50:
+        #(4) Penalize otherwise
+        elif self.height > 0.1*maxHeight:
             fitness -= 1
-        #Penalize if the height is greater than the width (want a horizontal rectangle)
+        #(5) Penalize if the height is greater than the width (want a horizontal rectangle)
         if self.height > self.width:
             fitness -= 3
-        #Reward otherwise
+        #(5) Reward otherwise
         elif self.width > self.height:
             fitness += 1
         return fitness

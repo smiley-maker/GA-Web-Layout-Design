@@ -13,10 +13,10 @@ class website():
     def __init__(self, maxWidth, maxHeight):
         #Creates a list of web components
         self.web = [] 
-        self.web.append(navbar(maxWidth, maxHeight))
-        self.web.append(image(maxWidth, maxHeight))
-        self.web.append(button(maxWidth, maxHeight))
-        self.web.append(text(maxWidth, maxHeight))
+        self.web.append(navbar(maxWidth, maxHeight)) #Adds the navbar
+        self.web.append(image(maxWidth, maxHeight)) #Adds the image
+        self.web.append(button(maxWidth, maxHeight)) #Adds the button
+        self.web.append(text(maxWidth, maxHeight)) #Adds the text
 
     def mutate(self, mutationRate, maxWidth, maxHeight):
         #Uses each components mutate function to update the design
@@ -29,13 +29,13 @@ class website():
         #Calculates the fitness for each component and sums
         fitness = self.web[0].fitness(500) + self.web[1].fitness(500) + self.web[2].fitness(500) + self.web[3].fitness(500)
         #Adds a few other constraints relating two or more components. 
-        #If the image and text overlaps, add a penalty
+        #(14) If the image and text overlaps, add a penalty
         if self.web[1].x - self.web[3].x < 0 or self.web[3].x - self.web[1].x < 0: 
             fitness -= 3
-        #If the button and text are within a certain range of each other, add a reward
+        #(15) If the button and text are within a certain range of each other, add a reward
         if 5 <= self.web[3].y - self.web[2].y <= 30:
             fitness += 1
-        #Applies the golden ratio to the image and the text components. 
+        #(16) Applies the golden ratio to the image and the text components. 
         if self.web[1].width*self.web[1].height >= -10 + (self.web[3].width*self.web[3].height*1.68) and self.web[1].width*self.web[1].height <= 10 + (self.web[3].width*self.web[3].height*1.68):
             fitness += 5
         return fitness
