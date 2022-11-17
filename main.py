@@ -14,7 +14,7 @@ def runGA(populationSize, crossoverRate, mutationRate, windowHeight, windowWidth
     for j in range(300):
         #Creates a new random internet with a given number of websites. 
         net = internet(populationSize, windowWidth, windowHeight)
-        net.sortByFitness() #Sorts the websites by their fitnesses
+        net.sortByFitness(windowWidth, windowHeight) #Sorts the websites by their fitnesses
         #Loops through half the population size
         for i in range(int(populationSize/2)):
             site1, site2 = net.selectPair() #Selects two websites that performed the best
@@ -25,9 +25,9 @@ def runGA(populationSize, crossoverRate, mutationRate, windowHeight, windowWidth
             newNet.addWebsite(site1) #Adds the new websites to the new internet variable
             newNet.addWebsite(site2)
             net = copy.copy(newNet) #Makes a copy of the dummy internet variable
-        bestFitness, index = net.evaluateFitness() #Calculates the best performing website for the given generation
+        bestFitness, index = net.evaluateFitness(windowWidth, windowHeight) #Calculates the best performing website for the given generation
         if j%50 == 0: #I didn't want to see all 300 generations of internets, so this shows every 50th (and just one site from each). 
             net.displays(windowWidth, windowHeight, index)
             print(bestFitness)
 
-runGA(24, 0.85, 0.05, 500, 500)
+runGA(24, 0.75, 0.85, 750, 1200)

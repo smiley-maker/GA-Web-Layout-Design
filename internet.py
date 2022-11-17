@@ -11,9 +11,9 @@ class internet:
             w = website(windowWidth, windowHeight)  #creates a new website
             self.internet.append(w) #Uploads that website to the internet (:
     
-    def sortByFitness(self):
+    def sortByFitness(self, windowWidth, windowHeight):
         #Function to sort the websites in the internet by their fitness values
-        tuples = [(web.fitness(), web) for web in self.internet] #Calculates fitness for each site
+        tuples = [(web.fitness(windowWidth, windowHeight), web) for web in self.internet] #Calculates fitness for each site
         tuples.sort(key=lambda x: x[0]) #Sorts through the first value (fitness value) using a sort function
         sortedFitnessValues = [f for (f,g) in tuples] #Retrieves just the fitness values
         sortedWebsites = [g for (f, g) in tuples] #Retrieves just the websites
@@ -29,13 +29,13 @@ class internet:
 #        newPop = self.sortByFitness()
         return (choiceOne, choiceTwo) #Returns the selected sites
 
-    def evaluateFitness(self):
+    def evaluateFitness(self, maxWidth, maxHeight):
         #Function to evaluate the fitness of an entire internet
         avgFitness = 0 #Variable to store the average fitness
         bestFitness = 0 #Variable to store the best fitness
         index = 0 #Index at which the best fitness occurred
         for i in range(len(self.internet)): #Loops through the length of the internet
-            fitnessLevel = self.internet[i].fitness() #Calculates the fitness of each website in the internet
+            fitnessLevel = self.internet[i].fitness(maxWidth, maxHeight) #Calculates the fitness of each website in the internet
             avgFitness += fitnessLevel #Adds the current fitness to the average fitness variable
             if fitnessLevel > bestFitness: #If the current fitness is greater than the previous best fitness,
                 bestFitness = fitnessLevel #update best fitness

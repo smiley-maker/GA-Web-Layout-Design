@@ -6,6 +6,7 @@ from button import *
 from text import *
 import pygame
 from pygame.locals import *
+import numpy as np
 
 #Website class ->
 class website():
@@ -25,9 +26,10 @@ class website():
         self.web[2].mutate(mutationRate, maxWidth, maxHeight)
         self.web[3].mutate(mutationRate, maxWidth, maxHeight)
     
-    def fitness(self):
+    def fitness(self, maxWidth, maxHeight):
         #Calculates the fitness for each component and sums
-        fitness = self.web[0].fitness(500) + self.web[1].fitness(500) + self.web[2].fitness(500) + self.web[3].fitness(500)
+        fitness = np.sum([self.web[i].fitness(maxWidth, maxHeight) for i in range(len(self.web))])
+#        fitness = self.web[0].fitness(maxWidth, maxHeight) + self.web[1].fitness(maxWidth, maxHeight) + self.web[2].fitness(maxWidth, maxHeight) + self.web[3].fitness(maxWidth, maxHeight)
         #Adds a few other constraints relating two or more components. 
         #(14) If the image and text overlaps, add a penalty
         if self.web[1].x - self.web[3].x < 0 or self.web[3].x - self.web[1].x < 0: 

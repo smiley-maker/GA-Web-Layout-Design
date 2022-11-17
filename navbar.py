@@ -30,13 +30,13 @@ class navbar():
             fitness -= 1
         #(2)&(3) Reward if the navbar is close to the left edge and the width is within a certain range of the page width. 
         if self.x < 0.05*maxWidth and 0.95*maxWidth <= self.width <= maxWidth:
-            fitness += 4
+            fitness += 7
         #(4) Reward if the height is under 50px
         if self.height <= 0.1*maxHeight:
-            fitness += 3
+            fitness += 6
         #(4) Penalize otherwise
         elif self.height > 0.1*maxHeight:
-            fitness -= 1
+            fitness -= 3
         #(5) Penalize if the height is greater than the width (want a horizontal rectangle)
         if self.height > self.width:
             fitness -= 3
