@@ -11,10 +11,10 @@ def runGA(populationSize, crossoverRate, mutationRate, windowHeight, windowWidth
     #Creates a dummy internet variable
     newNet = internet(populationSize, windowWidth, windowHeight)
     #Loops through a designated (300 here) number of generations
-    for j in range(300):
+    for j in range(500):
         #Creates a new random internet with a given number of websites. 
         net = internet(populationSize, windowWidth, windowHeight)
-        net.sortByFitness(windowWidth, windowHeight) #Sorts the websites by their fitnesses
+        net.internet , _ = net.sortByFitness(windowWidth, windowHeight) #Sorts the websites by their fitnesses
         #Loops through half the population size
         for i in range(int(populationSize/2)):
             site1, site2 = net.selectPair() #Selects two websites that performed the best
@@ -25,9 +25,13 @@ def runGA(populationSize, crossoverRate, mutationRate, windowHeight, windowWidth
             newNet.addWebsite(site1) #Adds the new websites to the new internet variable
             newNet.addWebsite(site2)
             net = copy.copy(newNet) #Makes a copy of the dummy internet variable
-        bestFitness, index = net.evaluateFitness(windowWidth, windowHeight) #Calculates the best performing website for the given generation
+        #bestFitness, index = net.evaluateFitness(windowWidth, windowHeight, j) #Calculates the best performing website for the given generation
+        outwebs , fitnessess = net.sortByFitness(windowWidth, windowHeight)
         if j%50 == 0: #I didn't want to see all 300 generations of internets, so this shows every 50th (and just one site from each). 
-            net.displays(windowWidth, windowHeight, index)
-            print(bestFitness)
+            #net.displays(windowWidth, windowHeight, index)
+            print(j)
+            outwebs[-1].display(windowWidth, windowHeight, True)
+            print(fitnessess[-1])
+            print([(i.width, i.height) for i in net.internet[-1].web])
 
-runGA(24, 0.75, 0.85, 750, 1200)
+runGA(12, 0.9, 0.01, 750, 1200)

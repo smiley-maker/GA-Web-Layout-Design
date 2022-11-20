@@ -7,19 +7,18 @@ from pygame.locals import *
 class image():
     def __init__(self, maxWidth, maxHeight):
         #Constructor to randomly initialize a new image
-        self.x = random.randint(0, maxWidth) #Sets random x location
-        self.y = random.randint(0, maxHeight) #Sets random y location
-        self.width = random.randint(0, maxWidth) #Sets random width
-        self.height = random.randint(0, maxHeight) #Sets random height
-    
+        self.x = random.randrange(maxWidth/2, maxWidth-1, 1)
+        self.y = random.randrange(0, maxHeight-1, 1)
+        self.width = random.randrange(1, abs(maxWidth-self.x), 1)
+        self.height = random.randrange(1, abs(maxHeight-self.y), 1)
+        
     def mutate(self, mutationRate, maxWidth, maxHeight):
         #Mutation function to modify parameters with a random probability
         if random.random() < mutationRate:
-            self.x = random.randrange(0, maxWidth, 1) #Sets each parameter to a new value
-            self.y = random.randrange(0, maxHeight, 1)
-            self.width = random.randrange(0, maxWidth, 5)
-            self.height = random.randrange(0, maxHeight, 5)
-    
+            self.x = random.randrange(0, maxWidth-1, 1)
+            self.y = random.randrange(0, maxHeight-1, 1)
+            self.width = random.randrange(1, abs(maxWidth-self.x), 1)
+            self.height = random.randrange(1, abs(maxHeight-self.y), 1)    
     def fitness(self, maxWidth, maxHeight):
         #Function to evaluate the fitness based on the designated optimization constraints for the image
         fitness = 0

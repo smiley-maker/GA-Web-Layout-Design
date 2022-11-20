@@ -5,18 +5,18 @@ from pygame.locals import *
 class button():
     def __init__(self, maxWidth, maxHeight):
         #Constructor to initialize values for the x,y coordinate and height and width
-        self.x = random.randint(0, maxWidth)
-        self.y = random.randint(0, maxHeight)
-        self.width = random.randint(0, maxWidth)
-        self.height = random.randint(0, maxHeight)
-    
+        self.x = random.randrange(0, maxWidth/2-1, 1)
+        self.y = random.randrange(0, maxHeight-1, 1)
+        self.width = random.randrange(1, abs(maxWidth-self.x), 1)
+        self.height = random.randrange(1, abs(maxHeight-self.y), 1)
+        
     def mutate(self, mutationRate, maxWidth, maxHeight):
         #Mutation function to randomly change the values of the button
         if random.random() < mutationRate:
-            self.x = random.randrange(0, maxWidth, 1)
-            self.y = random.randrange(0, maxHeight, 1)
-            self.width = random.randrange(0, int(maxWidth/3), 1)
-            self.height = random.randrange(0, int(maxHeight/3), 1)
+            self.x = random.randrange(0, maxWidth-1, 1)
+            self.y = random.randrange(0, maxHeight-1, 1)
+            self.width = random.randrange(1, abs(maxWidth-self.x), 1)
+            self.height = random.randrange(1, abs(maxHeight-self.y), 1)
     
     def fitness(self, maxWidth, maxHeight):
         #Function to calculate the button's fitness based on various constraints

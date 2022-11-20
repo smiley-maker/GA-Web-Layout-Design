@@ -29,13 +29,14 @@ class internet:
 #        newPop = self.sortByFitness()
         return (choiceOne, choiceTwo) #Returns the selected sites
 
-    def evaluateFitness(self, maxWidth, maxHeight):
+    def evaluateFitness(self, maxWidth, maxHeight, gen):
         #Function to evaluate the fitness of an entire internet
         avgFitness = 0 #Variable to store the average fitness
         bestFitness = 0 #Variable to store the best fitness
         index = 0 #Index at which the best fitness occurred
         for i in range(len(self.internet)): #Loops through the length of the internet
-            fitnessLevel = self.internet[i].fitness(maxWidth, maxHeight) #Calculates the fitness of each website in the internet
+            print(len(self.internet))
+            fitnessLevel = self.internet[i].fitness(maxWidth, maxHeight, gen) #Calculates the fitness of each website in the internet
             avgFitness += fitnessLevel #Adds the current fitness to the average fitness variable
             if fitnessLevel > bestFitness: #If the current fitness is greater than the previous best fitness,
                 bestFitness = fitnessLevel #update best fitness

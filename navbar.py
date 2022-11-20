@@ -6,18 +6,18 @@ from pygame.locals import *
 class navbar():
     def __init__(self, maxWidth, maxHeight):
         #Constructor initializing each attribute of the navbar. 
-        self.x = random.randrange(0, maxWidth, 1)
-        self.y = random.randrange(0, maxHeight, 1)
-        self.width = random.randrange(maxWidth/2, maxWidth, 1)
-        self.height = random.randrange(20, maxHeight, 1)
+        self.x = random.randrange(0, maxWidth-1, 1)
+        self.y = random.randrange(0, maxHeight/2-1, 1)
+        self.width = random.randrange(1, abs(maxWidth-self.x), 1)
+        self.height = random.randrange(1, abs(maxHeight-self.y), 1)
     
     def mutate(self, mutationRate, maxWidth, maxHeight):
         #Mutates each attribute of the navbar to new random values. 
         if random.random() < mutationRate:
-            self.x = random.randrange(0, maxWidth, 1)
-            self.y = random.randrange(0, maxHeight, 1)
-            self.width = random.randrange(maxWidth/2, maxWidth, 5)
-            self.height = random.randrange(20, maxHeight, 5)
+            self.x = random.randrange(0, maxWidth-1, 1)
+            self.y = random.randrange(0, maxHeight-1, 1)
+            self.width = random.randrange(1, abs(maxWidth-self.x), 1)
+            self.height = random.randrange(1, abs(maxHeight-self.y), 1)
     
     def fitness(self, maxWidth, maxHeight):
         #Evaluates the fitness of the navbar based on the following constraints
@@ -32,17 +32,17 @@ class navbar():
         if self.x < 0.05*maxWidth and 0.95*maxWidth <= self.width <= maxWidth:
             fitness += 7
         #(4) Reward if the height is under 50px
-        if self.height <= 0.1*maxHeight:
+        if self.height <= 0.1*maxHeight and self.height >= 0.05*maxHeight:
             fitness += 6
-        #(4) Penalize otherwise
-        elif self.height > 0.1*maxHeight:
-            fitness -= 3
+        # #(4) Penalize otherwise
+        # elif self.height > 0.1*maxHeight:
+        #     fitness -= 3
         #(5) Penalize if the height is greater than the width (want a horizontal rectangle)
         if self.height > self.width:
-            fitness -= 3
+            fitness -= 1
         #(5) Reward otherwise
         elif self.width > self.height:
-            fitness += 1
+            fitness += 3
         return fitness
 
     def display(self, screen):
