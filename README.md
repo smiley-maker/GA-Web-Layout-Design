@@ -9,4 +9,10 @@ pip install -r requirements.txt
 
 This command installs all dependencies necessary for the code. 
 
-Next, run main.py. This will run the genetic algorithm function using the parameters specified. 
+Next, run the following command. 
+
+```
+python main.py
+```
+
+This will run the genetic algorithm function using the parameters specified.
