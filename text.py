@@ -41,8 +41,8 @@ class text():
         if self.height >= 0.3*maxHeight:
             fitness += 3 #Reward if condition is met
         #(13)
-        elif self.height < 0.3*maxHeight:
-            fitness -= 1 #Penalty if not met
+#        elif self.height < 0.3*maxHeight:
+ #           fitness -= 1 #Penalty if not met
         if self.contrast() < 2.8:
             fitness -= 5
         elif self.contrast() > 5:

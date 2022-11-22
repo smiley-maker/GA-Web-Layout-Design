@@ -2,16 +2,20 @@ import random
 from internet import *
 from website import *
 import copy
-
+import numpy as np
+import pandas as pd
 
 #This function runs the genetic algorithm (GA) using various parameters that we can fine tune
 #to get different results. The window height and width will be used to create a canvas of that
 #size using pygame and then to display all components of a website. 
 def runGA(populationSize, crossoverRate, mutationRate, windowHeight, windowWidth):
+    avgList = []
+    bestList = []
+    avgBest = []
     #Creates a dummy internet variable
     newNet = internet(populationSize, windowWidth, windowHeight)
     #Loops through a designated (300 here) number of generations
-    for j in range(500):
+    for j in range(1000):
         #Creates a new random internet with a given number of websites. 
         net = internet(populationSize, windowWidth, windowHeight)
         net.internet , _ = net.sortByFitness(windowWidth, windowHeight) #Sorts the websites by their fitnesses
@@ -25,13 +29,23 @@ def runGA(populationSize, crossoverRate, mutationRate, windowHeight, windowWidth
             newNet.addWebsite(site1) #Adds the new websites to the new internet variable
             newNet.addWebsite(site2)
             net = copy.copy(newNet) #Makes a copy of the dummy internet variable
-        #bestFitness, index = net.evaluateFitness(windowWidth, windowHeight, j) #Calculates the best performing website for the given generation
         outwebs , fitnessess = net.sortByFitness(windowWidth, windowHeight)
-        if j%50 == 0: #I didn't want to see all 300 generations of internets, so this shows every 50th (and just one site from each). 
-            #net.displays(windowWidth, windowHeight, index)
-            print(j)
-            outwebs[-1].display(windowWidth, windowHeight, True)
-            print(fitnessess[-1])
-            print([(i.width, i.height) for i in net.internet[-1].web])
+        #avg = np.mean(fitnessess)
+        #avgList.append(avg)
+        bestList.append(fitnessess[-1])
 
-runGA(12, 0.9, 0.01, 750, 1200)
+#    outwebs[-1].display(windowWidth, windowHeight, True, True, "websites/finalGen.png")
+        if j%50 == 0: #I didn't want to see all 300 generations of internets, so this shows every 50th (and just one site from each). 
+            print(j)
+            avgBest.append(np.mean(bestList))
+            bestList = []
+            #outwebs[-1].display(windowWidth, windowHeight, True, True, "websites/website-"+str(j)+"-b.png")
+            #print(fitnessess[-1])
+            #print(avgList)
+
+    df = pd.DataFrame(avgBest, columns=["Average Best"])
+    df.to_csv("fitness-l.csv", index=False)
+            
+            #print([(i.width, i.height) for i in net.internet[-1].web])
+
+runGA(60, 0.9, 0.1, 750, 1200)
