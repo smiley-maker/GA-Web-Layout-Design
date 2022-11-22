@@ -52,15 +52,14 @@ class website():
         if not self.web[1].x - self.web[3].x < 0 or not self.web[3].x - self.web[1].x < 0: 
             fitness += 3
         #(15) If the button and text are within a certain range of each other, add a reward
-        if 5 <= self.web[3].y - self.web[2].y <= 30:
+        if 0.05*maxWidth <= self.web[3].y - self.web[2].y <= 0.1*maxWidth:
             fitness += 1
-        #(16) Applies the golden ratio to the image and the text components. 
+        #(17) Applies the golden ratio to the image and the text components. 
         if self.web[1].width*self.web[1].height >= -10 + (self.web[3].width*self.web[3].height*1.68) and self.web[1].width*self.web[1].height <= 10 + (self.web[3].width*self.web[3].height*1.68):
             fitness += 5
+        #(16) Components aren't overlapping the navbar
         fitness += sum([4 for b in self.web[1:] if not self.isIntersecting(self.web[0], b)])
-        #if sum([i.width*i.height for i in self.web]) <= maxWidth*maxHeight:
-#        fitness -= max([int(0.00001*(maxWidth*maxHeight - np.sum([i.width*i.height for i in self.web]))) , 0])
-        #Set packing -> whole area should be covered. 
+        #(18) Set packing -> whole area should be covered. 
         fitness -= max([int(0.000005*np.sum([(maxWidth*maxHeight - self.calculateArea(self.web[i], self.web[i+1])) for i in range(len(self.web)-1)])), 0])
         
         return fitness
