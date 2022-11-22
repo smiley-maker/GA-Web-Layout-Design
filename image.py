@@ -28,9 +28,6 @@ class image():
         #(10) The height of the image should be at least a third of the height of the page
         if self.height >= 0.3*maxHeight:
             fitness += 3 #Reward if condition is met
-        #(10)
-#        elif self.height < 0.1*maxHeight:
- #           fitness -= 1 #Penalty otherwise
         return fitness #Returns final fitness value for the image component. 
 
     def display(self, screen):

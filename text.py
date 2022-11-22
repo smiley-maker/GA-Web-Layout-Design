@@ -19,16 +19,17 @@ class text():
             self.width = random.randrange(1, abs(maxWidth-self.x), 1)
             self.height = random.randrange(1, abs(maxHeight-self.y), 1)
             self.color.randomize()
-
+            
+    #Function to determine the contrast between two colors
     def contrast(self):
-        contrastRatio = 0
-        lum1 = color.luminance(self.color)
-        white = color(255, 255, 255)
-        lum2 = color.luminance(white)
-        if lum1 > lum2:
-            contrastRatio = (lum1 + 0.05)/(lum2 + 0.05)
+        contrastRatio = 0 #Variable to hold the resulting contrast ratio
+        lum1 = color.luminance(self.color) #Calculates the luminance of the text color
+        white = color(255, 255, 255) #Creates a white color object
+        lum2 = color.luminance(white) #Calculates the luminance of white
+        if lum1 > lum2: 
+            contrastRatio = (lum1 + 0.05)/(lum2 + 0.05) #Calculates the contrast ratio
         else:
-            contrastRatio = (lum2 + 0.05)/(lum1 + 0.05)
+            contrastRatio = (lum2 + 0.05)/(lum1 + 0.05) #Calculates the contrast ratio
         return contrastRatio
 
     def fitness(self, maxWidth, maxHeight):
@@ -40,13 +41,11 @@ class text():
         #(13) The height of the text box should be at least a third of the height of the page. 
         if self.height >= 0.3*maxHeight:
             fitness += 3 #Reward if condition is met
-        #(13)
-#        elif self.height < 0.3*maxHeight:
- #           fitness -= 1 #Penalty if not met
-        if self.contrast() < 2.8:
-            fitness -= 5
+        #Contrast constraints (outside of integer programming constraints on layout)
+        if self.contrast() < 2.8: 
+            fitness -= 5 #Penalize for low contrast
         elif self.contrast() > 5:
-            fitness += 5
+            fitness += 5 #Reward for good contrast
         return fitness #Returns the fitness of the text component
 
     def display(self, screen):

@@ -25,25 +25,16 @@ class navbar():
         #(1) Reward if the navbar is close to the top
         if self.y < 0.1*maxHeight:
             fitness += 3
-        #(1) Penalize if it is further down the page
-        #elif self.y > 0.1*maxHeight:
-         #   fitness -= 1
         #(2)&(3) Reward if the navbar is close to the left edge and the width is within a certain range of the page width. 
         if self.x < 0.05*maxWidth and 0.95*maxWidth <= self.width <= maxWidth:
             fitness += 7
-        #(4) Reward if the height is under 50px
+        #(4) Reward if the height is under a certain percentage of the page height
         if self.height <= 0.1*maxHeight and self.height >= 0.05*maxHeight:
             fitness += 6
-        # #(4) Penalize otherwise
-        # elif self.height > 0.1*maxHeight:
-        #     fitness -= 3
-        #(5) Penalize if the height is greater than the width (want a horizontal rectangle)
-       # if self.height > self.width:
-        #    fitness -= 1
-        #(5) Reward otherwise
+        #(5) Reward if the width of the navbar is greater than the width (a horizontal rectangle is desired)
         if self.width > self.height:
             fitness += 3
-        return fitness
+        return fitness #Return the navbar's fitness value
 
     def display(self, screen):
         #Uses pygame to display the navbar as a rectangle. 

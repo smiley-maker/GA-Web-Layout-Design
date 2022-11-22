@@ -29,21 +29,6 @@ class internet:
 #        newPop = self.sortByFitness()
         return (choiceOne, choiceTwo) #Returns the selected sites
 
-    def evaluateFitness(self, maxWidth, maxHeight, gen):
-        #Function to evaluate the fitness of an entire internet
-        avgFitness = 0 #Variable to store the average fitness
-        bestFitness = 0 #Variable to store the best fitness
-        index = 0 #Index at which the best fitness occurred
-        for i in range(len(self.internet)): #Loops through the length of the internet
-            print(len(self.internet))
-            fitnessLevel = self.internet[i].fitness(maxWidth, maxHeight, gen) #Calculates the fitness of each website in the internet
-            avgFitness += fitnessLevel #Adds the current fitness to the average fitness variable
-            if fitnessLevel > bestFitness: #If the current fitness is greater than the previous best fitness,
-                bestFitness = fitnessLevel #update best fitness
-                index = i #update the index
-        avgFitness = avgFitness / len(self.internet) #Calculate average
-        return bestFitness, index #Returns the best fitness and the index it occurred at
-    
     def crossover(self, site1, site2):
         #Function to perform a crossover between two websites
         crossoverPoint = random.randrange(0, len(site1.web), 1) #Randomly selects a point to split at

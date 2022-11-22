@@ -27,15 +27,9 @@ class button():
         #(6) We don't want the button to get to small, however, so
         elif self.width < 0.05*maxWidth:
             fitness -= 1 #penalize the GA here. 
-        #(6) We also want to penalize for a larger button
-   #     elif self.width >= 0.5*maxWidth:
-    #        fitness -= 2
         #(7) If the height of the button is between 1% and 10% of the page height,
         if 0.01*maxHeight <= self.height <= 0.1*maxHeight:
             fitness += 3 #Include a positive fitness value
-        #(7) Otherwise, reduce the fitness
-     #   elif self.height > 0.1*maxHeight:
-      #      fitness -= 1
         return fitness #Return the button's fitness value. 
 
     def display(self, screen):

@@ -26,27 +26,27 @@ class website():
         self.web[2].mutate(mutationRate, maxWidth, maxHeight)
         self.web[3].mutate(mutationRate, maxWidth, maxHeight)
 
+    #Function to determine if two components are intersecting
     def isIntersecting(self, a, b):
+        #If the difference between the center point of object a and the center point of object b is less than their average width
         if abs((a.x + a.width/2) - (b.x + b.width/2)) < (a.width + b.width)/2:
-            return True
+            return True #They are intersecting
         return False
 
     #Calculates area for set packing constraint
     def calculateArea(self, a, b):
-        #wh + wh - aoi
-        area = 0
-        w = min((a.x+a.width), (b.x+b.width)) - max(a.x, b.x)
-        h = min((a.y+a.height), (b.y+b.height)) - max(a.y, b.y)
-        if w > 0 and h > 0:
-            area = a.width*a.height + b.width*b.height - w*h
+        combinedArea = 0 #Variable to store the area result
+        newW = min((a.x+a.width), (b.x+b.width)) - max(a.x, b.x) #Calculates the width of the combined objects
+        newH = min((a.y+a.height), (b.y+b.height)) - max(a.y, b.y) #Calculates the height of the combined objects
+        if newW > 0 and newH > 0:
+            combinedArea = a.width*a.height + b.width*b.height - newW*newH #Calculates reduced area
         else:
-            area = a.width*a.height + b.width*b.height
-        return area
+            combinedArea = a.width*a.height + b.width*b.height #If the objects aren't overlapping, return just the normal areas
+        return combinedArea #Returns the combined area. 
     
     def fitness(self, maxWidth, maxHeight, gen=None):
         #Calculates the fitness for each component and sums
         fitness = sum([self.web[i].fitness(maxWidth, maxHeight) for i in range(len(self.web))])
-#        fitness = self.web[0].fitness(maxWidth, maxHeight) + self.web[1].fitness(maxWidth, maxHeight) + self.web[2].fitness(maxWidth, maxHeight) + self.web[3].fitness(maxWidth, maxHeight)
         #Adds a few other constraints relating two or more components. 
         #(14) If the image and text overlaps, add a penalty
         if not self.web[1].x - self.web[3].x < 0 or not self.web[3].x - self.web[1].x < 0: 
@@ -78,11 +78,8 @@ class website():
                     running = False
                 screen.fill((255, 255, 255))
             #Loads each of the components onto the screen using their display functions
-            
             for comp in self.web:
                 comp.display(screen)
             pygame.display.flip()
             pygame.image.save(screen , name)
-            running = False
-            pygame.quit()
         pygame.quit()
