@@ -1,5 +1,7 @@
 # GA-Web-Layout-Design
-Generated web designs using a dynamic genetic algorithm approach. 
+
+In this project, I use integer programming and genetic algorithms to create unique web designs using colored blocks. There are numerous guidelines for the genetic algorithm including placement constraints as well as good contrast for the color of the text block. Please see the attached paper for more information on my approach. 
+
 ## Instructions to Run: 
 Start by running the following command in a terminal: 
 
